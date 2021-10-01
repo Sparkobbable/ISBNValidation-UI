@@ -1,0 +1,17 @@
+.outerContainer {
+    padding-top: 10vh;
+    width: 50%;
+    margin: auto;
+    
+}
+
+.headline {
+    text-align: center;
+    font-size: x-large;
+}
+
+.container {
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+}
