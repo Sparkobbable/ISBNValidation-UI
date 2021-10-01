@@ -1,0 +1,20 @@
+.header {
+    background-color: lightgray;
+    height: 10vh;
+    text-align: center;
+}
+
+.menuItem {
+    cursor: pointer;
+    height: 10vh;
+}
+
+.menuItem p {
+    
+}
+
+.menuItem:hover {
+    font-weight: bold;
+    background-color: grey;
+    transition: 0.2s;
+}
