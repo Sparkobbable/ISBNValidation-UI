@@ -9,10 +9,6 @@
     height: 10vh;
 }
 
-.menuItem p {
-    
-}
-
 .menuItem:hover {
     font-weight: bold;
     background-color: grey;

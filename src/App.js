@@ -1,12 +1,10 @@
-import Menu from './menu/Menu';
 import './App.css';
-import ValidateIsbn from './components/validateisbn/ValidateIsbn';
+import AppRouter from './AppRouter';
 
 function App() {
   return (
     <div className="App">
-      <Menu></Menu>
-      <ValidateIsbn></ValidateIsbn>
+      <AppRouter/>
     </div>
   );
 }
