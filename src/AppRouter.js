@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import CreateIsbn from "./components/createIsbn/CreateIsbn";
 import CreateProof from "./components/createProof/CreateProof";
 import ValidateIsbn from "./components/validateisbn/ValidateIsbn";
 
@@ -14,7 +15,7 @@ export default function AppRouter() {
                     <CreateProof />
                 </Route>
                 <Route path="/createIsbn">
-                    
+                    <CreateIsbn />
                 </Route>
                 <Route path="*">
                     <ValidateIsbn />
