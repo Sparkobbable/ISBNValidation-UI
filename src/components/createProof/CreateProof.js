@@ -4,6 +4,8 @@ import SendIcon from '@mui/icons-material/Send';
 import './CreateProof.css';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from '@mui/material';
 import Menu from '../../menu/Menu';
+import ReactInputMask from 'react-input-mask';
+import apiService from '../../api/Api.Service';
 
 function CreateProof() {
     const [isbn, setIsbn] = useState("");
@@ -11,7 +13,7 @@ function CreateProof() {
     const [fullIsbn, setFullIsbn] = useState("");
 
     function generateProof() {
-        let returnMsg = "123-123-123-1";
+        let returnMsg = apiService().apiCreateProof(isbn);
 
         setFullIsbn(returnMsg);
         setOpen(true);
@@ -30,13 +32,18 @@ function CreateProof() {
         </div>
         <div className="container">
             <Stack direction="row" spacing={2}>
-                <TextField 
-                    id="outlined-basic" 
-                    label="ISBN" 
-                    variant="outlined" 
-                    value={isbn} 
-                    onChange={(e) => setIsbn(e.target.value)}
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                <ReactInputMask
+                    mask="9-99-999999"
+                    alwaysShowMask={false}
+                    value={isbn}
+                    onChange={(e) => setIsbn(e.target.value)}>
+                    {() => <TextField 
+                        id="outlined-basic" 
+                        label="ISBN" 
+                        variant="outlined" 
+                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                    }
+                </ReactInputMask>
                 <Button variant="contained" endIcon={<SendIcon/>} onClick={(e) => generateProof()}>
                     Generieren
                 </Button>

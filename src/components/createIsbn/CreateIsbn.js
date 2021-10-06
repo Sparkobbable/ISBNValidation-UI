@@ -4,6 +4,8 @@ import SendIcon from '@mui/icons-material/Send';
 import './CreateIsbn.css';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from '@mui/material';
 import Menu from '../../menu/Menu';
+import ReactInputMask from 'react-input-mask';
+import apiService from '../../api/Api.Service';
 
 function CreateIsbn() {
     const [isbn, setIsbn] = useState("");
@@ -12,8 +14,9 @@ function CreateIsbn() {
     const [publisherNr, setPublisherNr] = useState("");
     const [titelNr, setTitelNr] = useState("");
 
+
     function generateIsbn() {
-        let returnMsg = "123-123-123-1";
+        let returnMsg = apiService().apiCreateIsbn({groupNr: groupNr, publisherNr: publisherNr, titelNr: titelNr});
 
         setIsbn(returnMsg);
         setGroupNr("");
@@ -36,27 +39,45 @@ function CreateIsbn() {
         <div className="container">
             <Stack spacing={2}>
                 <Stack direction="row" spacing={2}>
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Gruppennummer" 
-                        variant="outlined" 
-                        value={groupNr} 
-                        onChange={(e) => setGroupNr(e.target.value)}
-                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Verlagsnummer" 
-                        variant="outlined" 
-                        value={publisherNr} 
-                        onChange={(e) => setPublisherNr(e.target.value)}
-                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
-                    <TextField 
-                        id="outlined-basic" 
-                        label="Titelnummer" 
-                        variant="outlined" 
-                        value={titelNr} 
-                        onChange={(e) => setTitelNr(e.target.value)}
-                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                    <ReactInputMask
+                        mask="9"
+                        alwaysShowMask={false}
+                        maskChar=""
+                        value={groupNr}
+                        onChange={(e) => setGroupNr(e.target.value)}>
+                        {() => <TextField 
+                            id="outlined-basic" 
+                            label="Gruppennummer" 
+                            variant="outlined" 
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                        }
+                    </ReactInputMask>
+                    <ReactInputMask
+                        mask="99999"
+                        alwaysShowMask={false}
+                        maskChar=""
+                        value={publisherNr}
+                        onChange={(e) => setPublisherNr(e.target.value)}>
+                        {() => <TextField 
+                            id="outlined-basic" 
+                            label="Verlagsnummer" 
+                            variant="outlined" 
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                        }
+                    </ReactInputMask>
+                    <ReactInputMask
+                        mask="999"
+                        alwaysShowMask={false}
+                        maskChar=""
+                        value={titelNr}
+                        onChange={(e) => setTitelNr(e.target.value)}>
+                        {() => <TextField 
+                            id="outlined-basic" 
+                            label="Titelnummer" 
+                            variant="outlined" 
+                            inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                        }
+                    </ReactInputMask>
                 </Stack>
                 <Button variant="contained" endIcon={<SendIcon/>} onClick={(e) => generateIsbn()}>
                     Generieren

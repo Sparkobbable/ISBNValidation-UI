@@ -4,6 +4,8 @@ import SendIcon from '@mui/icons-material/Send';
 import './ValidateIsbn.css';
 import { Alert, Button, Snackbar, Stack, TextField } from '@mui/material';
 import Menu from '../../menu/Menu';
+import ReactInputMask from 'react-input-mask';
+import apiService from '../../api/Api.Service';
 
 function ValidateIsbn() {
     const [isbn, setIsbn] = useState("");
@@ -11,15 +13,15 @@ function ValidateIsbn() {
     const [openInvalid, setOpenInvalid] = useState(false);
 
     function validateIsbn() {
-        let returnMsg = false;
+        let returnMsg = apiService().apiValidateIsbn(isbn);
 
         setOpenValid(returnMsg);
         setOpenInvalid(!returnMsg);
     }
 
-    function onEnterIsbn(isbn) {
+    function onEnterIsbn(enter) {
         setOpenValid(false);
-        setIsbn(isbn)
+        setIsbn(enter)
     }
 
   return (
@@ -31,13 +33,19 @@ function ValidateIsbn() {
         </div>
         <div className="container">
             <Stack direction="row" spacing={2}>
-                <TextField 
-                    id="outlined-basic" 
-                    label="ISBN" 
-                    variant="outlined" 
-                    value={isbn} 
-                    onChange={(e) => onEnterIsbn(e.target.value)}
-                    inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                <ReactInputMask
+                    mask="9-99-999999-9"
+                    alwaysShowMask={false}
+                    value={isbn}
+                    onChange={(e) => onEnterIsbn(e.target.value)}>
+                    {() => <TextField 
+                        id="outlined-basic" 
+                        label="ISBN" 
+                        variant="outlined" 
+                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
+                    }
+                </ReactInputMask>
+
                 <Button variant="contained" endIcon={<SendIcon/>} onClick={(e) => validateIsbn()}>
                     Validieren
                 </Button>
