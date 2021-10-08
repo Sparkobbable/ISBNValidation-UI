@@ -14,11 +14,13 @@ function CreateProof({history, setHistory}) {
     const [fullIsbn, setFullIsbn] = useState("");
 
     function generateProof() {
-        let returnMsg = apiService().apiCreateProof(isbn);
+        let pIsbn = isbn.replaceAll("-", ""); 
+        let returnMsg = apiService().apiCreateProof(pIsbn);
+        returnMsg.then(msg => {
+            history.set(new Date(), {func: "generateProof", req: isbn, res: msg});
 
-        history.set(Date.now(), {req: isbn, res: returnMsg});
-
-        setFullIsbn(returnMsg);
+            setFullIsbn(isbn + "-" + msg);
+        });
         setOpen(true);
     }
 

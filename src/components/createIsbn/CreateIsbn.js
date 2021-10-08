@@ -19,9 +19,11 @@ function CreateIsbn({history, setHistory}) {
     function generateIsbn() {
         let returnMsg = apiService().apiCreateIsbn({groupNr: groupNr, publisherNr: publisherNr, titelNr: titelNr});
 
-        history.set(Date.now(), {req: groupNr + " - " + publisherNr + " - " + titelNr, res: returnMsg});
-
-        setIsbn(returnMsg);
+        returnMsg.then(msg => {
+            history.set(new Date(), {func: "generateIsbn", req: groupNr + " - " + publisherNr + " - " + titelNr, res: msg});
+            setIsbn(msg);
+        });
+        
         setGroupNr("");
         setPublisherNr("");
         setTitelNr("");

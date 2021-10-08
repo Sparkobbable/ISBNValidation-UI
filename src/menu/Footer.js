@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
 
 import './Footer.css';
 import { useHistory } from 'react-router';

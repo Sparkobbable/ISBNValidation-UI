@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 
 import './ValidateIsbn.css';
@@ -16,10 +16,11 @@ function ValidateIsbn({history, setHistory}) {
     function validateIsbn() {
         let returnMsg = apiService().apiValidateIsbn(isbn);
 
-        history.set(Date.now(), {req: isbn, res: returnMsg});
-
-        setOpenValid(returnMsg);
-        setOpenInvalid(!returnMsg);
+        returnMsg.then(msg => {
+            history.set(new Date(), {func: "validateIsbn", req: isbn, res: msg});
+            setOpenValid(msg == "valid" ? true : false);
+            setOpenInvalid(msg != "valid" ? true : false);
+        })
     }
 
     function onEnterIsbn(enter) {

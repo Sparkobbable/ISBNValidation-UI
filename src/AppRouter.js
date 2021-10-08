@@ -20,7 +20,7 @@ export default function AppRouter() {
                     <CreateIsbn history={history} setHistory={setHistory}/>
                 </Route>
                 <Route path="/history">
-                    <History />
+                    <History history={history}/>
                 </Route>
                 <Route path="*">
                     <ValidateIsbn history={history} setHistory={setHistory}/>
