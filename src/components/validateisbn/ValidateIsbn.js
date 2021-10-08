@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 
 import './ValidateIsbn.css';
@@ -24,10 +24,13 @@ function ValidateIsbn({history, setHistory}) {
 
     function onEnterIsbn(enter) {
         setOpenValid(false);
-        if (enter.size > 9 && isNaN(enter[9]) && enter[9] !== "X") {
-            setIsbn(enter.substring(0, 7));
+        enter.value = enter.value.replaceAll("-", "");
+        if (enter.value.length > 9 && isNaN(enter.value[9]) && enter.value[9] !== "X") {
+            enter.selectionStart = 8;
+            enter.selectionEnd = 8;
+            setIsbn(enter.value.substring(0, 9));
         } else {
-          setIsbn(enter);
+          setIsbn(enter.value);
         }
         
     }
@@ -45,11 +48,11 @@ function ValidateIsbn({history, setHistory}) {
                     mask="9-99-999999-*"
                     alwaysShowMask={false}
                     value={isbn}
-                    onChange={(e) => onEnterIsbn(e.target.value)}>
+                    onChange={(e) => onEnterIsbn(e.target)}>
                     {() => <TextField 
                         id="outlined-basic" 
                         label="ISBN" 
-                        variant="outlined" 
+                        variant="outlined"
                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}/>
                     }
                 </ReactInputMask>
