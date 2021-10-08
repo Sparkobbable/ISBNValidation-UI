@@ -24,7 +24,12 @@ function ValidateIsbn({history, setHistory}) {
 
     function onEnterIsbn(enter) {
         setOpenValid(false);
-        setIsbn(enter)
+        if (enter.size > 9 && isNaN(enter[9]) && enter[9] !== "X") {
+            setIsbn(enter.substring(0, 7));
+        } else {
+          setIsbn(enter);
+        }
+        
     }
 
   return (
@@ -37,7 +42,7 @@ function ValidateIsbn({history, setHistory}) {
         <div className="container">
             <Stack direction="row" spacing={2}>
                 <ReactInputMask
-                    mask="9-99-999999-9"
+                    mask="9-99-999999-*"
                     alwaysShowMask={false}
                     value={isbn}
                     onChange={(e) => onEnterIsbn(e.target.value)}>
