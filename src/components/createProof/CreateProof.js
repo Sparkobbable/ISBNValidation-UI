@@ -6,14 +6,17 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import Menu from '../../menu/Menu';
 import ReactInputMask from 'react-input-mask';
 import apiService from '../../api/Api.Service';
+import Footer from '../../menu/Footer';
 
-function CreateProof() {
+function CreateProof({history, setHistory}) {
     const [isbn, setIsbn] = useState("");
     const [open, setOpen] = useState(false);
     const [fullIsbn, setFullIsbn] = useState("");
 
     function generateProof() {
         let returnMsg = apiService().apiCreateProof(isbn);
+
+        history.set(Date.now(), {req: isbn, res: returnMsg});
 
         setFullIsbn(returnMsg);
         setOpen(true);
@@ -66,6 +69,7 @@ function CreateProof() {
             </Dialog>
         </div>
     </div>
+    <Footer />
     </>);
 }
 

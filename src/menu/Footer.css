@@ -1,0 +1,21 @@
+.footer {
+    background-color: lightgray;
+    height: 3vh;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100vw;
+}
+
+.history {
+    cursor: pointer;
+    width: 5vw;
+    text-align: center;
+    height: 3vh;
+}
+
+.history:hover {
+    background-color: grey;
+    font-weight: bold;
+    transition: 0.2s;
+}

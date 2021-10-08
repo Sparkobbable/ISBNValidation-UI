@@ -6,14 +6,17 @@ import { Alert, Button, Snackbar, Stack, TextField } from '@mui/material';
 import Menu from '../../menu/Menu';
 import ReactInputMask from 'react-input-mask';
 import apiService from '../../api/Api.Service';
+import Footer from '../../menu/Footer';
 
-function ValidateIsbn() {
+function ValidateIsbn({history, setHistory}) {
     const [isbn, setIsbn] = useState("");
     const [openValid, setOpenValid] = useState(false);
     const [openInvalid, setOpenInvalid] = useState(false);
 
     function validateIsbn() {
         let returnMsg = apiService().apiValidateIsbn(isbn);
+
+        history.set(Date.now(), {req: isbn, res: returnMsg});
 
         setOpenValid(returnMsg);
         setOpenInvalid(!returnMsg);
@@ -59,6 +62,7 @@ function ValidateIsbn() {
                     ISBN ist nicht valide!
                 </Alert>
             </Snackbar>
+            <Footer />
         </div>
     </div>
     </>);

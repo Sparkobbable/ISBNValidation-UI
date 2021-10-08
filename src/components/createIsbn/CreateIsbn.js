@@ -6,8 +6,9 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import Menu from '../../menu/Menu';
 import ReactInputMask from 'react-input-mask';
 import apiService from '../../api/Api.Service';
+import Footer from '../../menu/Footer';
 
-function CreateIsbn() {
+function CreateIsbn({history, setHistory}) {
     const [isbn, setIsbn] = useState("");
     const [open, setOpen] = useState(false);
     const [groupNr, setGroupNr] = useState("");
@@ -17,6 +18,8 @@ function CreateIsbn() {
 
     function generateIsbn() {
         let returnMsg = apiService().apiCreateIsbn({groupNr: groupNr, publisherNr: publisherNr, titelNr: titelNr});
+
+        history.set(Date.now(), {req: groupNr + " - " + publisherNr + " - " + titelNr, res: returnMsg});
 
         setIsbn(returnMsg);
         setGroupNr("");
@@ -101,6 +104,7 @@ function CreateIsbn() {
             </Dialog>
         </div>
     </div>
+    <Footer />
     </>);
 }
 

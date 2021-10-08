@@ -22,7 +22,7 @@ class APIService {
 
     async apiCreateProof(isbn) {
         try {
-            const response = await axios.get(BASE_URL + "/createProof?isbn=" + isbn, {
+            const response = await axios.get(BASE_URL + "/calculateCheckDigit?isbn=" + isbn, {
                 validateStatus: function (status) {
                     return status <= 400;
                 }
