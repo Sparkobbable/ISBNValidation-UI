@@ -1,5 +1,5 @@
 Build status:
-![CI](https://github.com/Sparkobbable/ISBNValidation-UI/actions/workflows/node.js.yml/badge.svg)
+![CI](https://github.com/Sparkobbable/ISBNValidation-UI/actions/workflows/master_isbn-tools.yml/badge.svg)
 
 # Getting Started with Create React App
 
