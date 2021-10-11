@@ -52,4 +52,4 @@ jobs:
           app-name: 'ISBN-Tools'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1BDEE704FDF74A13BFF5CB6286CA1E1E }}
-          package: '*.zip'
+          package: .
