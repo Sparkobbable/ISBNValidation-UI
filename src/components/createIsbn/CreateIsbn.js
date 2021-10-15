@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 
 import './CreateIsbn.css';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from '@mui/material';
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, Stack, TextField } from '@mui/material';
 import Menu from '../../menu/Menu';
 import ReactInputMask from 'react-input-mask';
 import apiService from '../../api/Api.Service';
@@ -14,6 +14,8 @@ function CreateIsbn({history, setHistory}) {
     const [groupNr, setGroupNr] = useState("");
     const [publisherNr, setPublisherNr] = useState("");
     const [titelNr, setTitelNr] = useState("");
+    const [inputLength, setInputLength] = useState(0);
+    const [openInputError, setOpenInputError] = useState(false);
 
 
     function generateIsbn() {
@@ -34,6 +36,17 @@ function CreateIsbn({history, setHistory}) {
         setOpen(false);
     }
 
+    function onFormInput(input, setInput) {
+        setInputLength(groupNr.length + publisherNr.length + titelNr.length);
+        setInput(input);
+        if (inputLength > 7) {
+            setOpenInputError(true);
+            setInput(input.substring(0, input.length - 1));
+            return;
+        } 
+        setOpenInputError(false);
+    }
+
   return (
     <>
     <Menu/>
@@ -45,11 +58,11 @@ function CreateIsbn({history, setHistory}) {
             <Stack spacing={2}>
                 <Stack direction="row" spacing={2}>
                     <ReactInputMask
-                        mask="9"
+                        mask="99"
                         alwaysShowMask={false}
                         maskChar=""
                         value={groupNr}
-                        onChange={(e) => setGroupNr(e.target.value)}>
+                        onChange={(e) => onFormInput(e.target.value, setGroupNr)}>
                         {() => <TextField 
                             id="outlined-basic" 
                             label="Gruppennummer" 
@@ -58,11 +71,11 @@ function CreateIsbn({history, setHistory}) {
                         }
                     </ReactInputMask>
                     <ReactInputMask
-                        mask="99999"
+                        mask="9999999"
                         alwaysShowMask={false}
                         maskChar=""
                         value={publisherNr}
-                        onChange={(e) => setPublisherNr(e.target.value)}>
+                        onChange={(e) => onFormInput(e.target.value, setPublisherNr)}>
                         {() => <TextField 
                             id="outlined-basic" 
                             label="Verlagsnummer" 
@@ -71,11 +84,11 @@ function CreateIsbn({history, setHistory}) {
                         }
                     </ReactInputMask>
                     <ReactInputMask
-                        mask="999"
+                        mask="99999"
                         alwaysShowMask={false}
                         maskChar=""
                         value={titelNr}
-                        onChange={(e) => setTitelNr(e.target.value)}>
+                        onChange={(e) => onFormInput(e.target.value, setTitelNr)}>
                         {() => <TextField 
                             id="outlined-basic" 
                             label="Titelnummer" 
@@ -104,6 +117,11 @@ function CreateIsbn({history, setHistory}) {
                     <Button onClick={() => onClose()}>OK</Button>
                 </DialogActions>
             </Dialog>
+            <Snackbar open={openInputError}>
+                <Alert severity="error" sx={{width: '100%'}}>
+                    Maximale Zeichenanzahl erreicht!
+                </Alert>
+            </Snackbar>
         </div>
     </div>
     <Footer />

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 
@@ -25,6 +26,7 @@ function ValidateIsbn({history, setHistory}) {
 
     function onEnterIsbn(enter) {
         setOpenValid(false);
+        setOpenInvalid(false);
         enter.value = enter.value.replaceAll("-", "");
         if (enter.value.length > 9 && isNaN(enter.value[9]) && enter.value[9] !== "X") {
             enter.selectionStart = 8;

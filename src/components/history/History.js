@@ -6,7 +6,7 @@ import Footer from '../../menu/Footer';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 function History({history}) {
-    const [rows, setRows] = useState([]);
+    const [rows] = useState([]);
     for (let [key, value] of history) {
         rows.push([key.toISOString().substring(0,19).replaceAll("T", " "), value.func, value.req, value.res]);
     }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:7071";
+const BASE_URL = "https://sac-isbn10validation.azurewebsites.net";
 
 export default function apiService() {
     return new APIService();
